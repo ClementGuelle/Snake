@@ -1,16 +1,20 @@
 package src.metier;
 
+import src.metier.Tete;
 
 public class Plateau
 {
 
     private char[][] plateau;
+    private Tete     tete;
+
     /**
      *
      * Constructeur de la classe Plateau
      */
     public Plateau()
     {
+        this.tete    = new Tete();
         this.plateau = initPlateau();
     }
 
@@ -30,7 +34,7 @@ public class Plateau
 
         plateau[16][10] = 'Q';
         plateau[16][11] = 'C';
-        plateau[16][12] = 'T';
+        plateau[this.tete.getCoordX()][this.tete.getCoordX()] = 'T';
 
         plateau[16][25] = 'P';
 
