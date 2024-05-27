@@ -35,14 +35,21 @@ public class Jeu
 			{
 				if( time.estSecondePile() )
 				{
+					// Condition pour clear sous windows
 					if (System.getProperty("os.name").contains("Windows"))
 					{
 						new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 					}
 
+					// Condition pour clear sous Linux
+					if (System.getProperty("os.name").contains("Linux"))
+					{
+						new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
+					}
+
 					this.plateau.majPlateau();
 
-					if ( this.plateau.getSerpent().deplacerSerpent())
+					if ( this.plateau.deplacerSerpent() )
 					{
 						System.out.print  (this.plateau.getSerpent().getTete().getCoordX() + " : ");
 						System.out.println(this.plateau.getSerpent().getTete().getCoordY());
