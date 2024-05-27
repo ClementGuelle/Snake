@@ -13,7 +13,7 @@ public class Plateau
 	 */
 	public Plateau()
 	{
-        this.pomme   = new int[] {16, 25};
+        this.pomme   = new int[] {25, 16};
         this.serpent = new Serpent();
 		this.plateau = initPlateau();
 	}
@@ -34,17 +34,16 @@ public class Plateau
 			for (int col = 0; col < plateau[lig].length; col++)
 				plateau[lig][col] = ' ';
 
+        plateau[this.getYPomme()][this.getXPomme()] = 'P';
 
-		plateau[this.serpent.getTete().getCoordX()][this.serpent.getTete().getCoordY()] = this.serpent.getTete().getPartieCorp();
+
+        plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX()] = this.serpent.getTete().getPartieCorp();
 
 		for(int cpt = 0; cpt < this.serpent.getCorp().size(); cpt ++)
-			plateau[this.serpent.getCorp().get(cpt).getCoordX()][this.serpent.getCorp().get(cpt).getCoordY()] = this.serpent.getCorp().get(cpt).getPartieCorp();
+			plateau[this.serpent.getCorp().get(cpt).getCoordY()][this.serpent.getCorp().get(cpt).getCoordX()] = this.serpent.getCorp().get(cpt).getPartieCorp();
 
-		plateau[this.serpent.getQueue().getCoordX()][this.serpent.getQueue().getCoordY()] = this.serpent.getQueue().getPartieCorp();
+		plateau[this.serpent.getQueue().getCoordY()][this.serpent.getQueue().getCoordX()] = this.serpent.getQueue().getPartieCorp();
 
-
-
-		plateau[this.getXPomme()][this.getYPomme()] = 'P';
 
 		return plateau;
 	}
@@ -103,14 +102,16 @@ public class Plateau
         {
             case 'N' ->
             {
-                if ( this.serpent.getTete().getCoordX() - 1 > 0 &&
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P')
+                if ( this.serpent.getTete().getCoordY() - 1 > 0 &&
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
                 {
-                    if ( this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P' )
+
+                    this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
+
+                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
                     {
                         System.out.println("Pomme mangé");
-
                         this.serpent.ajouterCorp();
 
                         while (!this.changementPlacePomme())
@@ -119,20 +120,21 @@ public class Plateau
                         }
                     }
 
-                    this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
                     return true;
                 }
             }
             case 'S' ->
             {
-                if ( this.serpent.getTete().getCoordX() + 1 < 32 &&
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P')
+                if ( this.serpent.getTete().getCoordY() + 1 < 32 &&
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
                 {
-                    if ( this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P' )
+
+                    this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
+
+                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
                     {
                         System.out.println("Pomme mangé");
-
                         this.serpent.ajouterCorp();
 
                         while (!this.changementPlacePomme())
@@ -140,20 +142,24 @@ public class Plateau
                             System.out.println("Changement de la place de la pomme impossible");
                         }
                     }
-                    this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
+
                     return true;
                 }
             }
             case 'O' ->
             {
-                if ( this.serpent.getTete().getCoordY() - 1 > 0 &&
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P')
+                if ( this.serpent.getTete().getCoordX() - 1 > 0 &&
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
                 {
-                    if ( this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P' )
-                    {
-                        System.out.println("Pomme mangé");
 
+                    this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
+
+
+                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
+                    {
+
+                        System.out.println("Pomme mangé");
                         this.serpent.ajouterCorp();
 
                         while (!this.changementPlacePomme())
@@ -161,20 +167,19 @@ public class Plateau
                             System.out.println("Changement de la place de la pomme impossible");
                         }
                     }
-                    this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
+
                     return true;
                 }
             }
             case 'E' ->
             {
-                if ( this.serpent.getTete().getCoordY() + 1 < 32 &&
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P')
+                if ( this.serpent.getTete().getCoordX() + 1 < 32 &&
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
                 {
-                    if ( this.caseSvtEstVide(this.serpent.getDirectionTete()) == 'P' )
-                    {
-                        System.out.println("Pomme mangé");
 
+                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
+                    {
                         this.serpent.ajouterCorp();
 
                         while (!this.changementPlacePomme())
@@ -183,7 +188,6 @@ public class Plateau
                         }
                     }
 
-                    this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
                     return true;
                 }
 
@@ -198,26 +202,26 @@ public class Plateau
      * @param dir direction de la tête
      * @return un boolean si le serpent peut aller sur la case ou non
      */
-    public char caseSvtEstVide(char dir)
+    public char caseSvtEstPossible(char dir)
     {
         switch ( dir )
         {
             case 'N' ->
             {
-                 return this.plateau[this.serpent.getTete().getCoordX()][this.serpent.getTete().getCoordY()-1];
+                 return this.plateau[this.serpent.getTete().getCoordY() - 1][this.serpent.getTete().getCoordX()];
             }
             case 'S' ->
             {
-                return this.plateau[this.serpent.getTete().getCoordX()][this.serpent.getTete().getCoordY()+1];
+                return this.plateau[this.serpent.getTete().getCoordY() + 1][this.serpent.getTete().getCoordX()];
             }
             case 'O' ->
             {
-                return this.plateau[this.serpent.getTete().getCoordX()-1][this.serpent.getTete().getCoordY()];
+                return this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() - 1];
 
             }
             case 'E' ->
             {
-                return this.plateau[this.serpent.getTete().getCoordX()+1][this.serpent.getTete().getCoordY()];
+                return this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() + 1];
             }
         }
 
@@ -232,16 +236,15 @@ public class Plateau
                 this.plateau[lig][col] = ' ';
 
 
-        this.plateau[this.serpent.getTete().getCoordX()][this.serpent.getTete().getCoordY()] = this.serpent.getTete().getPartieCorp();
+        this.plateau[this.getYPomme()][this.getXPomme()] = 'P';
+
+        this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX()] = this.serpent.getTete().getPartieCorp();
 
 		for(int cpt = 0; cpt < this.serpent.getCorp().size(); cpt ++)
-            this.plateau[this.serpent.getCorp().get(cpt).getCoordX()][this.serpent.getCorp().get(cpt).getCoordY()] = this.serpent.getCorp().get(cpt).getPartieCorp();
+            this.plateau[this.serpent.getCorp().get(cpt).getCoordY()][this.serpent.getCorp().get(cpt).getCoordX()] = this.serpent.getCorp().get(cpt).getPartieCorp();
 
-        this.plateau[this.serpent.getQueue().getCoordX()][this.serpent.getQueue().getCoordY()] = this.serpent.getQueue().getPartieCorp();
+        this.plateau[this.serpent.getQueue().getCoordY()][this.serpent.getQueue().getCoordX()] = this.serpent.getQueue().getPartieCorp();
 
-
-
-        this.plateau[this.getXPomme()][this.getYPomme()] = 'P';
 	}
 
 	/**

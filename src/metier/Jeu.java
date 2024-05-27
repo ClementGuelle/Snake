@@ -27,8 +27,6 @@ public class Jeu
 		boolean estFini = false;
 
 
-		System.out.println(plateau);
-
 		while (!estFini)
 		{
 			try
@@ -49,17 +47,13 @@ public class Jeu
 
 					this.plateau.majPlateau();
 
-					if ( this.plateau.deplacerSerpent() )
+					System.out.println(this.plateau.getSerpent().getTete().getCoordX() + " : " + this.plateau.getSerpent().getTete().getCoordY());
+
+					if ( !this.plateau.deplacerSerpent() )
 					{
-						System.out.print  (this.plateau.getSerpent().getTete().getCoordX() + " : ");
-						System.out.println(this.plateau.getSerpent().getTete().getCoordY());
-
-						System.out.println("Je me suis déplacé");
-					}
-					else
 						estFini = true;
-
-
+						System.out.println("Perdu");
+					}
 
 					System.out.println(plateau);
 				}

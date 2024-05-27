@@ -17,12 +17,12 @@ public class Serpent
 	{
 		this.corp          = new ArrayList<>();
 
-		this.tete          = new PartieCorpSerpent(16, 7, 'T');
-		this.queue         = new PartieCorpSerpent(16, 5, 'Q');
+		this.tete          = new PartieCorpSerpent(7, 16, 'T');
+		this.queue         = new PartieCorpSerpent(5, 16, 'Q');
 
 		this.directionTete = 'E';
 
-		this.corp.add(new PartieCorpSerpent(16, 6, 'C'));
+		this.corp.add(new PartieCorpSerpent(6, 16, 'C'));
 
 		this.corp.get(0).ajouterEntre(this.tete, this.queue);
 	}
