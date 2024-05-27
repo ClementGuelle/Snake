@@ -47,7 +47,6 @@ public class Jeu
 
 					this.plateau.majPlateau();
 
-					System.out.println(this.plateau.getSerpent().getTete().getCoordX() + " : " + this.plateau.getSerpent().getTete().getCoordY());
 
 					if ( !this.plateau.deplacerSerpent() )
 					{
@@ -56,6 +55,7 @@ public class Jeu
 					}
 
 					System.out.println(plateau);
+
 				}
 
 			} catch (IOException | InterruptedException e) {}

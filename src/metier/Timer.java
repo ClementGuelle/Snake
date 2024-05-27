@@ -5,9 +5,9 @@ import java.time.Instant;
 
 public class Timer
 {
-	private Instant                  debutTemps;
-	private Instant                  finTemps;
-	private boolean                  running;
+	private Instant debutTemps;
+	private Instant finTemps;
+	private boolean running;
 
 
 	public Timer()

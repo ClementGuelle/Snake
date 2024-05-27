@@ -65,8 +65,8 @@ public class Plateau
 
     public boolean changementPlacePomme()
     {
-        int xPomme = (int) (Math.random () * 33 );
-        int yPomme = (int) (Math.random () * 33 );
+        int xPomme = (int) (Math.random () * 32 );
+        int yPomme = (int) (Math.random () * 32 );
 
         if ( this.plateau[xPomme][yPomme] == ' ' )
         {
@@ -103,21 +103,21 @@ public class Plateau
             case 'N' ->
             {
                 if ( this.serpent.getTete().getCoordY() - 1 > 0 &&
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()))
                 {
 
                     this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
 
-                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
+                    if ( this.plateau[this.serpent.getTete().getCoordY() - 1][this.serpent.getTete().getCoordX()] == 'P' )
                     {
-                        System.out.println("Pomme mangé");
+                        this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
                         this.serpent.ajouterCorp();
 
-                        while (!this.changementPlacePomme())
-                        {
-                            System.out.println("Changement de la place de la pomme impossible");
-                        }
+                        while (!this.changementPlacePomme()) {}
+                    }
+                    else
+                    {
+                        this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
                     }
 
                     return true;
@@ -126,21 +126,21 @@ public class Plateau
             case 'S' ->
             {
                 if ( this.serpent.getTete().getCoordY() + 1 < 32 &&
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()))
                 {
 
                     this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
 
-                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
+                    if ( this.plateau[this.serpent.getTete().getCoordY() + 1][this.serpent.getTete().getCoordX()] == 'P' )
                     {
-                        System.out.println("Pomme mangé");
+                        this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
                         this.serpent.ajouterCorp();
 
-                        while (!this.changementPlacePomme())
-                        {
-                            System.out.println("Changement de la place de la pomme impossible");
-                        }
+                        while (!this.changementPlacePomme()) {}
+                    }
+                    else
+                    {
+                        this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
                     }
 
                     return true;
@@ -149,23 +149,23 @@ public class Plateau
             case 'O' ->
             {
                 if ( this.serpent.getTete().getCoordX() - 1 > 0 &&
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()))
                 {
 
                     this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
 
 
-                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
+                    if ( this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() - 1] == 'P' )
                     {
 
-                        System.out.println("Pomme mangé");
+                        this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
                         this.serpent.ajouterCorp();
 
-                        while (!this.changementPlacePomme())
-                        {
-                            System.out.println("Changement de la place de la pomme impossible");
-                        }
+                        while (!this.changementPlacePomme()) {}
+                    }
+                    else
+                    {
+                        this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
                     }
 
                     return true;
@@ -174,18 +174,16 @@ public class Plateau
             case 'E' ->
             {
                 if ( this.serpent.getTete().getCoordX() + 1 < 32 &&
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == ' ' ||
-                     this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P')
+                     this.caseSvtEstPossible(this.serpent.getDirectionTete()))
                 {
 
-                    if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) == 'P' )
+                    this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
+
+                    if ( this.serpent.getTete().getCoordX() == this.pomme[0] && this.serpent.getTete().getCoordY() == this.pomme[1]  )
                     {
                         this.serpent.ajouterCorp();
 
-                        while (!this.changementPlacePomme())
-                        {
-                            System.out.println("Changement de la place de la pomme impossible");
-                        }
+                        while (!this.changementPlacePomme()) {}
                     }
 
                     return true;
@@ -202,30 +200,46 @@ public class Plateau
      * @param dir direction de la tête
      * @return un boolean si le serpent peut aller sur la case ou non
      */
-    public char caseSvtEstPossible(char dir)
+    public boolean caseSvtEstPossible(char dir)
     {
         switch ( dir )
         {
             case 'N' ->
             {
-                 return this.plateau[this.serpent.getTete().getCoordY() - 1][this.serpent.getTete().getCoordX()];
+                if ( this.serpent.getTete().getCoordY() - 1 > 0 &&
+                     this.plateau[this.serpent.getTete().getCoordY() - 1][this.serpent.getTete().getCoordX()] == ' ' ||
+                     this.plateau[this.serpent.getTete().getCoordY() - 1][this.serpent.getTete().getCoordX()] == 'P')
+                    return true;
             }
             case 'S' ->
             {
-                return this.plateau[this.serpent.getTete().getCoordY() + 1][this.serpent.getTete().getCoordX()];
+                if ( this.serpent.getTete().getCoordY() + 1 < 32 &&
+                     this.plateau[this.serpent.getTete().getCoordY() + 1][this.serpent.getTete().getCoordX()] == ' ' ||
+                     this.plateau[this.serpent.getTete().getCoordY() + 1][this.serpent.getTete().getCoordX()] == 'P')
+                    return true;
             }
             case 'O' ->
             {
-                return this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() - 1];
+                if ( this.serpent.getTete().getCoordX() - 1 > 0 &&
+                     this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() - 1] == ' ' ||
+                     this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() - 1] == 'P')
+                    return true;
 
             }
             case 'E' ->
             {
-                return this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() + 1];
+                if ( this.serpent.getTete().getCoordX() + 1 < 32 &&
+                     this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() + 1] == ' ' ||
+                     this.plateau[this.serpent.getTete().getCoordY()][this.serpent.getTete().getCoordX() + 1] == 'P')
+                {
+                    System.out.println(this.pomme[0] + " : " + this.pomme[1]);
+                    return true;
+                }
+
             }
         }
 
-        return ' ';
+        return false;
     }
 
 
