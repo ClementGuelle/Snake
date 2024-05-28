@@ -40,10 +40,10 @@ public class Jeu
 					}
 
 					// Condition pour clear sous Linux
-					//if (System.getProperty("os.name").contains("Linux"))
-					//{
-				//		new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
-			//		}
+					if (System.getProperty("os.name").contains("Linux"))
+					{
+						new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
+					}
 
 
 					if ( this.plateau.deplacerSerpent() )
@@ -57,8 +57,6 @@ public class Jeu
 					}
 
 					System.out.println(plateau);
-					System.out.println("Affichage nombre corps pl " + this.plateau.getSerpent().getCorp().size());
-
 				}
 
 			} catch (IOException | InterruptedException e) {}

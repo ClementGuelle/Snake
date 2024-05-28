@@ -98,16 +98,10 @@ public class Plateau
             // Moins 1 car size() donne un élément en plus car il par de 1
             for(int cpt = this.serpent.getCorp().size() -1; cpt > 0; cpt --)
             {
-                System.out.println(this.serpent.getCorp().size());
-                System.out.println(this.serpent.getCorp().get(cpt).getCoordY() + " : " + this.serpent.getCorp().get(cpt).getCoordX() + " -> " + this.serpent.getCorp().get(cpt).getPartieCorp());
                 // cpt - 1 pour avoir le corp avant celui où on change la place
                 this.serpent.getCorp().get(cpt).setCoordX(this.serpent.getCorp().get(cpt-1).getCoordX());
                 this.serpent.getCorp().get(cpt).setCoordY(this.serpent.getCorp().get(cpt-1).getCoordY());
             }
-
-            System.out.println(this.serpent.getCorp().get(0).getCoordY() + " : " + this.serpent.getCorp().get(0).getCoordX() + " -> " + this.serpent.getCorp().get(0).getPartieCorp());
-            System.out.println(this.serpent.getQueue().getCoordY() + " : " + this.serpent.getQueue().getCoordX() + " -> " + this.serpent.getQueue().getPartieCorp());
-
 
             this.serpent.getCorp().get(0).setCoordX(this.serpent.getTete().getCoordX());
             this.serpent.getCorp().get(0).setCoordY(this.serpent.getTete().getCoordY());
@@ -254,10 +248,6 @@ public class Plateau
 		}
 
 		sRet += tracageLigne;
-
-        sRet += "\n";
-        for (int lig = 0; lig < this.plateau.length; lig++)
-            sRet += " "+lig;
 
         return sRet;
 	}
