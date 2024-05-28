@@ -45,10 +45,12 @@ public class Jeu
 						new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
 					}
 
-					this.plateau.majPlateau();
 
-
-					if ( !this.plateau.deplacerSerpent() )
+					if ( this.plateau.deplacerSerpent() )
+					{
+						this.plateau.majPlateau();
+					}
+					else
 					{
 						estFini = true;
 						System.out.println("Perdu");

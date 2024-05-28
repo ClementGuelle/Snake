@@ -177,14 +177,16 @@ public class Plateau
                      this.caseSvtEstPossible(this.serpent.getDirectionTete()))
                 {
 
-                    this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
-
                     if ( this.serpent.getTete().getCoordX() == this.pomme[0] && this.serpent.getTete().getCoordY() == this.pomme[1]  )
                     {
                         this.serpent.ajouterCorp();
+                        this.majPlateau();
 
                         while (!this.changementPlacePomme()) {}
                     }
+
+                    this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
+
 
                     return true;
                 }
