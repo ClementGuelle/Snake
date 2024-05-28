@@ -18,6 +18,11 @@ public class Plateau
 		this.plateau = initPlateau();
 	}
 
+	public char[][] getPlateau()
+	{
+		return this.plateau;
+	}
+
 	/**
 	 * Création du plateau
 	 * 

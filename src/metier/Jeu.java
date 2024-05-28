@@ -1,27 +1,31 @@
 package src.metier;
 
-import src.metier.Plateau;
-import src.metier.Timer;
-
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 
 public class Jeu
 {
-	Timer time   = new Timer();
-
+	Timer time = new Timer();
 
 	private Plateau plateau;
+
 
 	public Jeu()
 	{
 		this.plateau = new Plateau();
 
-		this.jeu(this.plateau);
+		this.jeu();
 	}
 
-	public void jeu(Plateau plateau)
+	public char[][] getPlateau()
 	{
+		return this.plateau.getPlateau();
+	}
+
+	public void jeu()
+	{
+
 		time.start();
 
 		boolean estFini = false;
@@ -56,7 +60,7 @@ public class Jeu
 						System.out.println("Perdu");
 					}
 
-					System.out.println(plateau);
+					System.out.println(this.plateau);
 				}
 
 			} catch (IOException | InterruptedException e) {}
