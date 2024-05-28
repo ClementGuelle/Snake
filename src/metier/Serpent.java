@@ -32,7 +32,6 @@ public class Serpent
 	public List<PartieCorpSerpent> getCorp         () { return corp; }
 	public PartieCorpSerpent       getQueue        () { return queue; }
 	public char                    getDirectionTete() { return this.directionTete; }
-	public int                     getLongueurCorp () { return this.corp.size(); }
 
 
 	public void setDirectionTete(char direction) { this.directionTete = direction; }
@@ -40,11 +39,10 @@ public class Serpent
 
 	public void ajouterCorp()
 	{
-		this.corp.add(new PartieCorpSerpent(this.corp.get(this.corp.size()-1).getCoordX(), this.corp.get(this.corp.size()-1).getCoordY(), 'C'));
+		this.corp.add(0, new PartieCorpSerpent(this.tete.getCoordX(), this.tete.getCoordY(), 'C'));
 
-		this.corp.get(this.corp.size()-1).ajouterEntre(this.corp.get(this.corp.size()-2), this.queue);
+		this.corp.get(0).ajouterEntre(this.tete, this.corp.get(1));
 	}
-
 
 
 }
