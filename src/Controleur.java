@@ -28,8 +28,6 @@ public class Controleur
 		{
 			if( time.estSecondePile() )
 			{
-				this.majPlateau();
-
 				if ( this.plateau.deplacerSerpent() )
 				{
 					this.plateau.majPlateau();
@@ -38,6 +36,8 @@ public class Controleur
 				{
 					estFini = true;
 				}
+
+				this.majPlateau();
 			}
 		}
 	}

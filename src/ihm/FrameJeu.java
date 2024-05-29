@@ -58,11 +58,18 @@ public class FrameJeu extends JFrame
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
-			System.out.println("char = " + e.getKeyChar());
-			String misEnString = "" + e.getKeyChar();
-			String majuscule   = misEnString.toUpperCase();
+			char charPresse = ' ';
 
-			FrameJeu.this.ctrl.setDirectionTete(majuscule.charAt(0));
+			switch ( e.getKeyCode() )
+			{
+				case (KeyEvent.VK_UP)   -> charPresse = 'N';
+				case (KeyEvent.VK_DOWN) -> charPresse = 'S';
+				case (KeyEvent.VK_LEFT) -> charPresse = 'O';
+				case (KeyEvent.VK_RIGHT)-> charPresse = 'E';
+			}
+
+			if (charPresse != ' ')
+				FrameJeu.this.ctrl.setDirectionTete(charPresse);
 		}
 
 		@Override
