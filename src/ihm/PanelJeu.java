@@ -14,7 +14,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class PanelJeu extends JPanel implements ActionListener, ItemListener, AdjustmentListener
+public class PanelJeu extends JPanel
 {
 
 	private Controleur ctrl;
@@ -44,6 +44,14 @@ public class PanelJeu extends JPanel implements ActionListener, ItemListener, Ad
 			}
 
 
+		for ( int lig = 0; lig < this.ctrl.getPlateau().length; lig ++ )
+			for ( int col = 0; col < this.ctrl.getPlateau().length; col ++ )
+			{
+				Icon image = new ImageIcon(this.ctrl.getImages(this.ctrl.getPlateau()[lig][col]));
+
+				this.plateau[lig][col].setIcon(image);
+			}
+
 		this.add(this.panelPlateau, BorderLayout.CENTER);
 
 
@@ -54,24 +62,17 @@ public class PanelJeu extends JPanel implements ActionListener, ItemListener, Ad
 
 	}
 
-	public void itemStateChanged(ItemEvent e)
+	public void majPlateau()
 	{
+		for ( int lig = 0; lig < this.ctrl.getPlateau().length; lig ++ )
+			for ( int col = 0; col < this.ctrl.getPlateau().length; col ++ )
+			{
+				Icon image = new ImageIcon(this.ctrl.getImages(this.ctrl.getPlateau()[lig][col]));
 
-
+				this.plateau[lig][col].setIcon(image);
+			}
 	}
 
-	public void actionPerformed(ActionEvent e)
-	{
 
-
-
-	}
-
-	public void adjustmentValueChanged (AdjustmentEvent e)
-	{
-
-
-
-	}
 
 }

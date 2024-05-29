@@ -1,25 +1,83 @@
 package src;
 
 import src.ihm.FrameJeu;
-import src.metier.Jeu;
 import src.metier.Plateau;
+import src.metier.Timer;
+import java.io.IOException;
+
+import java.io.IOException;
 
 public class Controleur
 {
-	private Jeu jeu;
+	Timer time = new Timer();
+
+	private Plateau  plateau;
 	private FrameJeu frameJeu;
 
 	public Controleur()
 	{
-		this.jeu      = new Jeu();
+		this.plateau  = new Plateau();
 		this.frameJeu = new FrameJeu(this);
+
+		time.start();
+
+		boolean estFini = false;
+
+
+		while (!estFini)
+		{
+			if( time.estSecondePile() )
+			{
+				this.majPlateau();
+
+				if ( this.plateau.deplacerSerpent() )
+				{
+					this.plateau.majPlateau();
+				}
+				else
+				{
+					estFini = true;
+				}
+			}
+		}
 	}
 
 	public char[][] getPlateau()
 	{
-		return this.jeu.getPlateau();
+		return this.plateau.getPlateau();
 	}
 
+	public void setDirectionTete(char directionTete)
+	{
+		this.plateau.setDirectionTete(directionTete);
+	}
+
+	public String getImages(char elementJeu)
+	{
+		switch ( elementJeu )
+		{
+            case 'T' ->
+			{
+                return "../images/Tete.png";
+            }
+			case 'C' ->
+			{
+				return "../images/Corp.png";
+			}
+			case 'Q' ->
+			{
+				return "../images/Queue.png";
+			}
+			case 'P' ->
+			{
+				return "../images/Pomme.png";
+			}
+        }
+
+		return "../images/Vide.png";
+	}
+
+	public void majPlateau () { this.frameJeu.majPlateau(); }
 
 
 

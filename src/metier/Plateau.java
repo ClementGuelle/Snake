@@ -23,6 +23,11 @@ public class Plateau
 		return this.plateau;
 	}
 
+    public void setDirectionTete(char directionTete)
+    {
+        this.serpent.setDirectionTete(directionTete);
+    }
+
 	/**
 	 * Création du plateau
 	 * 
