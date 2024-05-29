@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class FrameJeu extends JFrame
 {
 
-	private PanelJeu  panelJeu;
+	private PanelJeu   panelJeu;
 	private Controleur ctrl;
 
 	public FrameJeu(Controleur ctrl)

@@ -33,8 +33,8 @@ public class PanelJeu extends JPanel
 		this.ctrl = ctrl;
 
 
-		this.panelPlateau  = new JPanel(new BorderLayout());
-		this.plateau       = new JLabel[this.ctrl.getPlateau().length][this.ctrl.getPlateau()[0].length];
+		this.panelPlateau = new JPanel(new GridLayout(32, 32));
+		this.plateau      = new JLabel[this.ctrl.getPlateau().length][this.ctrl.getPlateau()[0].length];
 
 		for ( int lig = 0; lig < this.ctrl.getPlateau().length; lig ++ )
 			for ( int col = 0; col < this.ctrl.getPlateau().length; col ++ )
