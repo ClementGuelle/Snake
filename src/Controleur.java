@@ -19,6 +19,7 @@ public class Controleur
 		this.plateau  = new Plateau();
 		this.frameJeu = new FrameJeu(this);
 
+
 		time.start();
 
 		boolean estFini = false;
@@ -62,7 +63,7 @@ public class Controleur
             }
 			case 'C' ->
 			{
-				return "../images/Corp.png";
+				return "../images/Corps.png";
 			}
 			case 'Q' ->
 			{

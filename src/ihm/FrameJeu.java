@@ -46,7 +46,6 @@ public class FrameJeu extends JFrame
 		this.panelJeu.majPlateau();
 	}
 
-
 	public class TouchePresse implements KeyListener
 	{
 
@@ -78,5 +77,7 @@ public class FrameJeu extends JFrame
 		}
 
 	}
+
+
 
 }

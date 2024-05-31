@@ -40,17 +40,14 @@ public class PanelJeu extends JPanel
 			for ( int col = 0; col < this.ctrl.getPlateau().length; col ++ )
 			{
 				this.plateau[lig][col] = new JLabel();
+
+				Icon image = new ImageIcon(this.ctrl.getImages(this.ctrl.getPlateau()[lig][col]));
+				this.plateau[lig][col].setIcon(image);
+				this.plateau[lig][col].setOpaque(false);
+
 				this.panelPlateau.add(this.plateau[lig][col]);
 			}
 
-
-		for ( int lig = 0; lig < this.ctrl.getPlateau().length; lig ++ )
-			for ( int col = 0; col < this.ctrl.getPlateau().length; col ++ )
-			{
-				Icon image = new ImageIcon(this.ctrl.getImages(this.ctrl.getPlateau()[lig][col]));
-
-				this.plateau[lig][col].setIcon(image);
-			}
 
 		this.add(this.panelPlateau, BorderLayout.CENTER);
 
