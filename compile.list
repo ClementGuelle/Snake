@@ -3,3 +3,7 @@
 ./src/metier/Plateau.java
 ./src/metier/Serpent.java
 ./src/metier/PartieCorpSerpent.java
+./src/metier/Timer.java
+
+./src/ihm/FrameJeu.java
+./src/ihm/PanelJeu.java

@@ -43,9 +43,11 @@ public class PanelJeu extends JPanel
 
 				Icon image = new ImageIcon(this.ctrl.getImages(this.ctrl.getPlateau()[lig][col]));
 				this.plateau[lig][col].setIcon(image);
+
 				this.plateau[lig][col].setOpaque(false);
 
 				this.panelPlateau.add(this.plateau[lig][col]);
+
 			}
 
 

@@ -22,7 +22,7 @@ public class FrameJeu extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Snake");
-		this.setSize(500, 200);
+		//this.setSize(500, 200);
 		this.setLocation(400, 400);
 
 		this.setLayout(new BorderLayout());
@@ -33,6 +33,7 @@ public class FrameJeu extends JFrame
 		this.addKeyListener(new TouchePresse());
 		this.setFocusable(true);
 
+		this.pack();
 		this.setVisible(true);
 
 
