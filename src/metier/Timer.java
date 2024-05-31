@@ -71,9 +71,9 @@ public class Timer
 	public boolean estSecondePile()
 	{
 		long millis  = getElapsedMillis();
-		long seconde = (millis % 60000) / 1000;
+		long seconde = (millis % 60000) / 200;
 
-		millis = millis - (seconde * 1000);
+		millis = millis - (seconde * 200);
 
 		if( millis == 0 )
 			return true;

@@ -36,6 +36,7 @@ public class Controleur
 				else
 				{
 					estFini = true;
+					System.out.print("Perdu");
 				}
 
 				this.majPlateau();
