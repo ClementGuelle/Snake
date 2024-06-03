@@ -14,6 +14,9 @@ public class Controleur
 	private Plateau  plateau;
 	private FrameJeu frameJeu;
 
+	private boolean estFini = false;
+
+
 	public Controleur()
 	{
 		this.plateau  = new Plateau();
@@ -22,10 +25,8 @@ public class Controleur
 
 		time.start();
 
-		boolean estFini = false;
 
-
-		while (!estFini)
+		while (!this.estFini)
 		{
 			if( time.estSecondePile() )
 			{
@@ -35,7 +36,7 @@ public class Controleur
 				}
 				else
 				{
-					estFini = true;
+					this.estFini = true;
 					System.out.print("Perdu");
 				}
 
@@ -60,7 +61,10 @@ public class Controleur
 		{
             case 'T' ->
 			{
-                return "../images/Tete.png";
+				if ( this.estFini )
+					return "../images/Mort" + this.plateau.getSerpent().getDirectionTete() + ".png";
+
+                return "../images/Tete" + this.plateau.getSerpent().getDirectionTete() + ".png";
             }
 			case 'C' ->
 			{

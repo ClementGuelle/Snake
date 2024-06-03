@@ -4,9 +4,7 @@ import src.Controleur;
 
 import javax.swing.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -43,21 +41,13 @@ public class PanelJeu extends JPanel
 
 				Icon image = new ImageIcon(this.ctrl.getImages(this.ctrl.getPlateau()[lig][col]));
 				this.plateau[lig][col].setIcon(image);
-
-				this.plateau[lig][col].setOpaque(false);
+				this.plateau[lig][col].setOpaque(true);
 
 				this.panelPlateau.add(this.plateau[lig][col]);
-
 			}
 
 
 		this.add(this.panelPlateau, BorderLayout.CENTER);
-
-
-		/* -------------------------- */
-		/*  Activation des composants */
-		/* -------------------------- */
-
 
 	}
 
