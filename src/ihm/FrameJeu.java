@@ -22,7 +22,7 @@ public class FrameJeu extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Snake");
-		//this.setSize(500, 200);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLocation(400, 400);
 
 		this.setLayout(new BorderLayout());
@@ -30,32 +30,25 @@ public class FrameJeu extends JFrame
 		this.panelJeu = new PanelJeu(this.ctrl);
 
 		this.add(this.panelJeu);
+
+		// Cela permet de savoir quelle touche est pressé pour le déplacement du serpent
 		this.addKeyListener(new TouchePresse());
 		this.setFocusable(true);
 
-		this.pack();
 		this.setVisible(true);
 
-
-		/* Fermer la fenÃªtre */
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
-	public void majPlateau()
-	{
-		this.panelJeu.majPlateau();
-	}
+	public void majPlateau() { this.panelJeu.majPlateau(); }
 
 	public class TouchePresse implements KeyListener
 	{
 
-		@Override
 		public void keyTyped(KeyEvent e)
 		{
 		}
 
-		@Override
 		public void keyPressed(KeyEvent e)
 		{
 			char charPresse = ' ';
@@ -72,7 +65,6 @@ public class FrameJeu extends JFrame
 				FrameJeu.this.ctrl.setDirectionTete(charPresse);
 		}
 
-		@Override
 		public void keyReleased(KeyEvent e)
 		{
 		}
