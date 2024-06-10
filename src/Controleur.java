@@ -8,6 +8,8 @@ import src.metier.Serpent;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controleur
 {
@@ -19,6 +21,7 @@ public class Controleur
 	private ComposantePlateau plateau;
 	private FrameJeu          frameJeu;
 	private boolean           estFini;
+	private List<Character>   listeDeplacement;
 
 
 
@@ -32,9 +35,10 @@ public class Controleur
 	public Controleur()
 	{
 
-		this.plateau  = new ComposantePlateau(this);
-		this.frameJeu = new FrameJeu(this);
-		this.estFini  = false;
+		this.plateau          = new ComposantePlateau(this);
+		this.frameJeu         = new FrameJeu(this);
+		this.estFini          = false;
+		this.listeDeplacement = new ArrayList<>();
 
 		System.out.println("Queue");
 
@@ -55,44 +59,32 @@ public class Controleur
 		System.out.println("\n\n\n\n\n");
 
 
+		listeDeplacement.add(plateau.getSerpent().getDirectionTete());
 
 		// Timer de 1 seconde
-		Timer timer = new Timer(200, new ActionListener()
+		Timer timer = new Timer(100, new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if (!estFini)
 				{
-
-					majPlateau();
+					plateau.setDirectionTete(listeDeplacement.get(listeDeplacement.size()-1));
 
 					if (plateau.deplacerSerpent())
 					{
-						System.out.println("Queue");
-
-						System.out.print(plateau.getSerpent().getQueue().getCoordX() + " : ");
-						System.out.println(plateau.getSerpent().getQueue().getCoordY());
-
-						System.out.println("Corps apres queue");
-
-						System.out.print(plateau.getSerpent().getQueue().getSuivant().getCoordX() + " : ");
-						System.out.println(plateau.getSerpent().getQueue().getSuivant().getCoordY());
-
-
-						System.out.println("tete");
-
-						System.out.print(plateau.getSerpent().getTete().getCoordX() + " : ");
-						System.out.println(plateau.getSerpent().getTete().getCoordY());
-
-						System.out.println("\n\n\n\n\n");
-
+						majPlateau();
 					}
+
+
 					else
 					{
 						estFini = true;
-						//majPlateau();
+						majPlateau();
 						((Timer) e.getSource()).stop();
 					}
+
+					listeDeplacement.clear();
+					listeDeplacement.add(plateau.getSerpent().getDirectionTete());
 				}
 			}
 		});
@@ -253,7 +245,7 @@ public class Controleur
 	/*     Set      */
 	/*--------------*/
 
-	public void setDirectionTete(char directionTete) { this.plateau.setDirectionTete(directionTete); }
+	public void setDirectionTete(char directionTete) { this.listeDeplacement.add(directionTete); }
 
 
 

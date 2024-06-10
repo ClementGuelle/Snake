@@ -97,36 +97,11 @@ public class ComposantePlateau
     public boolean deplacerSerpent()
     {
 
-		// variable utilisé pour parcourir le serpent et déplacer chaque partie une à une
-		PartieCorpSerpent partiSerpentVerif = this.serpent.getQueue();
-
-
         if ( this.serpent.getTete().getCoordX() == this.pomme[0] && this.serpent.getTete().getCoordY() == this.pomme[1] )
 		{
 			this.changementPlacePomme();
 			this.serpent.ajouterCorp();
 		}
-
-        else
-        {
-			// Ici se fait le déplacement de la queue et le déplacement du corps
-
-			 while (partiSerpentVerif.getPartieCorp() != 'T')
-			 {
-				 System.out.println("Avant modif");
-				 System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
-
-				 partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
-				 partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
-
-				 System.out.println("apres modif");
-				 System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
-
-
-				 partiSerpentVerif = partiSerpentVerif.getSuivant();
-			 }
-
-        }
 
 
         switch ( this.serpent.getDirectionTete() )
@@ -136,6 +111,7 @@ public class ComposantePlateau
             {
                 if ( this.serpent.getTete().getCoordX() - 1 >= 0 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
+					this.deplacerQueueCorps();
                     this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
 
                     return true;
@@ -145,6 +121,7 @@ public class ComposantePlateau
             {
                 if (  this.serpent.getTete().getCoordX() + 1 < 32 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
+					this.deplacerQueueCorps();
 					this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
 
 					return true;
@@ -154,7 +131,8 @@ public class ComposantePlateau
             {
                 if (  this.serpent.getTete().getCoordY() - 1 >= 0 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
-                    this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
+					this.deplacerQueueCorps();
+					this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
 
                     return true;
                 }
@@ -164,7 +142,8 @@ public class ComposantePlateau
             {
                 if (  this.serpent.getTete().getCoordY() + 1 < 32 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
-                    this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
+					this.deplacerQueueCorps();
+					this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
 
                     return true;
                 }
@@ -244,5 +223,30 @@ public class ComposantePlateau
 
         return true;
     }
+
+	public void deplacerQueueCorps()
+	{
+		// variable utilisé pour parcourir le serpent et déplacer chaque partie une à une
+		PartieCorpSerpent partiSerpentVerif = this.serpent.getQueue();
+
+
+		// Ici se fait le déplacement de la queue et le déplacement du corps
+
+		while (partiSerpentVerif.getPartieCorp() != 'T')
+		{
+			System.out.println("Avant modif");
+			System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
+
+			partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
+			partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
+
+			System.out.println("apres modif");
+			System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
+
+
+			partiSerpentVerif = partiSerpentVerif.getSuivant();
+		}
+
+	}
 
 }
