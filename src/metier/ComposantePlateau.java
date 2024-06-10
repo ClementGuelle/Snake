@@ -1,5 +1,8 @@
-package src.metier;
+/**
+ * @author GUELLE Clément
+ */
 
+package src.metier;
 
 import src.Controleur;
 
@@ -97,11 +100,13 @@ public class ComposantePlateau
     public boolean deplacerSerpent()
     {
 
+		// Si la pomme est mangé
         if ( this.serpent.getTete().getCoordX() == this.pomme[0] && this.serpent.getTete().getCoordY() == this.pomme[1] )
 		{
 			this.changementPlacePomme();
 			this.serpent.ajouterCorp();
 
+			// Fait avancer la tête après avoir ajouter le corp pour ne pas avoir d'affichage bizarre lorsque la pomme est mangé
 			switch ( this.serpent.getDirectionTete() )
 			{
 				case 'N' -> this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
@@ -110,9 +115,10 @@ public class ComposantePlateau
 				case 'E' -> this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
 			}
 
+			return true;
 		}
 
-
+		// Sinon en fonction de l'orientation de la tête le serpent avance
         switch ( this.serpent.getDirectionTete() )
         {
 
@@ -233,6 +239,9 @@ public class ComposantePlateau
         return true;
     }
 
+	/**
+	 * Méthode permettant le déplacement de la queue et du corp
+	 */
 	public void deplacerQueueCorps()
 	{
 		// variable utilisé pour parcourir le serpent et déplacer chaque partie une à une
@@ -243,15 +252,8 @@ public class ComposantePlateau
 
 		while (partiSerpentVerif.getPartieCorp() != 'T')
 		{
-			System.out.println("Avant modif");
-			System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
-
 			partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
 			partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
-
-			System.out.println("apres modif");
-			System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
-
 
 			partiSerpentVerif = partiSerpentVerif.getSuivant();
 		}

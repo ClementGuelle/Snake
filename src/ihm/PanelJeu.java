@@ -1,3 +1,7 @@
+/**
+ * @author GUELLE Clément
+ */
+
 package src.ihm;
 
 import src.Controleur;
@@ -6,23 +10,31 @@ import src.metier.PartieCorpSerpent;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
-import java.net.URL;
+
 
 public class PanelJeu extends JPanel
 {
+
+	/*--------------*/
+	/*    Données   */
+	/*--------------*/
+
 	private static final int TAILLE_PLATEAU = 32;
 
 	private Controleur ctrl;
 	private JPanel     panelPlateau;
 	private JLabel[][] plateau;
 
+
+
+	/*--------------*/
+	/* Instructions */
+	/*--------------*/
+
+	/**
+	 * Constructeur pour créer le Panel
+	 * @param ctrl le contrôleur utilisé pour y avoir accès par la suite
+	 */
 	public PanelJeu(Controleur ctrl)
 	{
 
@@ -31,9 +43,7 @@ public class PanelJeu extends JPanel
 
 		this.ctrl         = ctrl;
 		this.panelPlateau = new JPanel(new GridLayout(PanelJeu.TAILLE_PLATEAU, PanelJeu.TAILLE_PLATEAU));
-
-		// Moins 1 car on par de 0
-		this.plateau = new JLabel[PanelJeu.TAILLE_PLATEAU][PanelJeu.TAILLE_PLATEAU];
+		this.plateau      = new JLabel[PanelJeu.TAILLE_PLATEAU][PanelJeu.TAILLE_PLATEAU];
 
 
 
@@ -44,6 +54,8 @@ public class PanelJeu extends JPanel
 				// variable utilisé pour parcourir le serpent
 				PartieCorpSerpent partiSerpentVerif = this.ctrl.getSerpent().getQueue();
 				this.plateau[lig][col]              = new JLabel();
+
+				// Permet de mettre un contour noir aux cases
 				//this.plateau[lig][col].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
 
@@ -55,8 +67,6 @@ public class PanelJeu extends JPanel
 					{
 						Icon image = new ImageIcon(this.ctrl.getImages( lig, col, partiSerpentVerif.getPartieCorp() ));
 						this.plateau[lig][col].setIcon(image);
-						System.out.println(this.plateau[lig][col].getIcon());
-
 					}
 
 					partiSerpentVerif = partiSerpentVerif.getSuivant();
@@ -64,6 +74,7 @@ public class PanelJeu extends JPanel
 				} while ( partiSerpentVerif.getPartieCorp() != 'T' );
 
 
+				// Si aucune icon n'a était placé
 				if ( this.plateau[lig][col].getIcon() == null)
 				{
 					// Si la case est la tête
@@ -81,7 +92,7 @@ public class PanelJeu extends JPanel
 					}
 
 
-					// Si la case est vide
+					// Sinon la case est vide
 					else
 					{
 						Icon image = new ImageIcon(this.ctrl.getImages(lig, col, 'V' ));
@@ -95,12 +106,14 @@ public class PanelJeu extends JPanel
 			}
 
 
-
 		this.add(this.panelPlateau, BorderLayout.CENTER);
 
 	}
 
 
+	/**
+	 * Méthode permettant la mise à jour coté IHM pour voir l'avancé du serpent
+	 */
 	public void majPlateau()
 	{
 		for ( int lig = 0; lig < this.plateau.length; lig ++ )
@@ -123,7 +136,6 @@ public class PanelJeu extends JPanel
 					{
 						image = new ImageIcon(this.ctrl.getImages( lig, col, partiSerpentVerif.getPartieCorp() ));
 						this.plateau[lig][col].setIcon(image);
-						System.out.println(this.plateau[lig][col].getIcon());
 					}
 
 					partiSerpentVerif = partiSerpentVerif.getSuivant();
@@ -137,8 +149,6 @@ public class PanelJeu extends JPanel
 				{
 					image = new ImageIcon(this.ctrl.getImages(lig, col, 'T' ));
 					this.plateau[lig][col].setIcon(image);
-					System.out.println(this.plateau[lig][col].getIcon());
-
 				}
 
 				// Si la case est la pomme
@@ -150,4 +160,5 @@ public class PanelJeu extends JPanel
 
 			}
 	}
+
 }

@@ -1,3 +1,7 @@
+/**
+ * @author GUELLE Clément
+ */
+
 package src;
 
 import src.ihm.FrameJeu;
@@ -38,26 +42,10 @@ public class Controleur
 		this.plateau          = new ComposantePlateau(this);
 		this.frameJeu         = new FrameJeu(this);
 		this.estFini          = false;
+
+		// Liste permettant de voir les touches pressé
+		// Utile au cas où la personne clique sur plusieurs touche avant que le serpent ne se soit déplacé
 		this.listeDeplacement = new ArrayList<>();
-
-		System.out.println("Queue");
-
-		System.out.print(plateau.getSerpent().getQueue().getCoordX() + " : ");
-		System.out.println(plateau.getSerpent().getQueue().getCoordY());
-
-		System.out.println("Corps apres queue");
-
-		System.out.print(plateau.getSerpent().getQueue().getSuivant().getCoordX() + " : ");
-		System.out.println(plateau.getSerpent().getQueue().getSuivant().getCoordY());
-
-
-		System.out.println("tete");
-
-		System.out.print(plateau.getSerpent().getTete().getCoordX() + " : ");
-		System.out.println(plateau.getSerpent().getTete().getCoordY());
-
-		System.out.println("\n\n\n\n\n");
-
 
 		listeDeplacement.add(plateau.getSerpent().getDirectionTete());
 
@@ -68,6 +56,7 @@ public class Controleur
 			{
 				if (!estFini)
 				{
+					// La direction de la tête du serpent prend la derniere touche prise en compte lors du changement de sens
 					plateau.setDirectionTete(listeDeplacement.get(listeDeplacement.size()-1));
 
 					if (plateau.deplacerSerpent())
@@ -123,9 +112,6 @@ public class Controleur
 
 		} while ( partiSerpentVerif.getPartieCorp() != 'T' );
 
-		if (partiCorps!='V')
-			System.out.println(partiCorps);
-
 
 		switch (partiCorps)
 		{
@@ -159,8 +145,12 @@ public class Controleur
 	}
 
 
-
-
+	/**
+	 * Méthode permettant de savoir la direction de la partie du corp en fonction de celle qui la précéde et la suive
+	 * @param partieCorp Partie du corps pour laquelle est recherché la direction
+	 * @param charPartiCorps Partie du corps du serpent ( tête, corps, queue )
+	 * @return La direction que va prendre la partie du corps
+	 */
 	public String getDirectionPartieCorp(PartieCorpSerpent partieCorp, char charPartiCorps)
 	{
 
@@ -254,7 +244,9 @@ public class Controleur
 	/*     Autres méthodes      */
 	/*--------------------------*/
 
-
+	/**
+	 * Méthode permettant la mise à jour coté IHM
+	 */
 	public void majPlateau()
 	{
 		this.frameJeu.majPlateau();

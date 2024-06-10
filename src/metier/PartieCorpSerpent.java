@@ -1,3 +1,7 @@
+/**
+ * @author GUELLE Clément
+ */
+
 package src.metier;
 
 
