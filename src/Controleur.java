@@ -36,22 +36,61 @@ public class Controleur
 		this.frameJeu = new FrameJeu(this);
 		this.estFini  = false;
 
+		System.out.println("Queue");
+
+		System.out.print(plateau.getSerpent().getQueue().getCoordX() + " : ");
+		System.out.println(plateau.getSerpent().getQueue().getCoordY());
+
+		System.out.println("Corps apres queue");
+
+		System.out.print(plateau.getSerpent().getQueue().getSuivant().getCoordX() + " : ");
+		System.out.println(plateau.getSerpent().getQueue().getSuivant().getCoordY());
+
+
+		System.out.println("tete");
+
+		System.out.print(plateau.getSerpent().getTete().getCoordX() + " : ");
+		System.out.println(plateau.getSerpent().getTete().getCoordY());
+
+		System.out.println("\n\n\n\n\n");
+
+
 
 		// Timer de 1 seconde
-		Timer timer = new Timer(1000, new ActionListener()
+		Timer timer = new Timer(200, new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if (!estFini)
 				{
+
+					majPlateau();
+
 					if (plateau.deplacerSerpent())
 					{
-						majPlateau();
+						System.out.println("Queue");
+
+						System.out.print(plateau.getSerpent().getQueue().getCoordX() + " : ");
+						System.out.println(plateau.getSerpent().getQueue().getCoordY());
+
+						System.out.println("Corps apres queue");
+
+						System.out.print(plateau.getSerpent().getQueue().getSuivant().getCoordX() + " : ");
+						System.out.println(plateau.getSerpent().getQueue().getSuivant().getCoordY());
+
+
+						System.out.println("tete");
+
+						System.out.print(plateau.getSerpent().getTete().getCoordX() + " : ");
+						System.out.println(plateau.getSerpent().getTete().getCoordY());
+
+						System.out.println("\n\n\n\n\n");
+
 					}
 					else
 					{
 						estFini = true;
-						System.out.print("Perdu");
+						//majPlateau();
 						((Timer) e.getSource()).stop();
 					}
 				}

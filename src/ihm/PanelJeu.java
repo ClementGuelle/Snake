@@ -33,7 +33,7 @@ public class PanelJeu extends JPanel
 		this.panelPlateau = new JPanel(new GridLayout(PanelJeu.TAILLE_PLATEAU, PanelJeu.TAILLE_PLATEAU));
 
 		// Moins 1 car on par de 0
-		this.plateau = new JLabel[PanelJeu.TAILLE_PLATEAU - 1][PanelJeu.TAILLE_PLATEAU - 1];
+		this.plateau = new JLabel[PanelJeu.TAILLE_PLATEAU][PanelJeu.TAILLE_PLATEAU];
 
 
 
@@ -44,6 +44,7 @@ public class PanelJeu extends JPanel
 				// variable utilisé pour parcourir le serpent
 				PartieCorpSerpent partiSerpentVerif = this.ctrl.getSerpent().getQueue();
 				this.plateau[lig][col]              = new JLabel();
+				//this.plateau[lig][col].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
 
 				// Si la case est la queue ou une partie du corps du serpent
@@ -122,6 +123,7 @@ public class PanelJeu extends JPanel
 					{
 						image = new ImageIcon(this.ctrl.getImages( lig, col, partiSerpentVerif.getPartieCorp() ));
 						this.plateau[lig][col].setIcon(image);
+						System.out.println(this.plateau[lig][col].getIcon());
 					}
 
 					partiSerpentVerif = partiSerpentVerif.getSuivant();

@@ -102,20 +102,29 @@ public class ComposantePlateau
 
 
         if ( this.serpent.getTete().getCoordX() == this.pomme[0] && this.serpent.getTete().getCoordY() == this.pomme[1] )
-            this.serpent.ajouterCorp();
+		{
+			this.changementPlacePomme();
+			this.serpent.ajouterCorp();
+		}
 
         else
         {
 			// Ici se fait le déplacement de la queue et le déplacement du corps
 
-			do
-			{
-				partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
-				partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
+			 while (partiSerpentVerif.getPartieCorp() != 'T')
+			 {
+				 System.out.println("Avant modif");
+				 System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
 
-				partiSerpentVerif = partiSerpentVerif.getSuivant();
+				 partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
+				 partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
 
-			} while (partiSerpentVerif.getPartieCorp() != 'T');
+				 System.out.println("apres modif");
+				 System.out.println(partiSerpentVerif.getCoordX() + " : " + partiSerpentVerif.getCoordY() + " -> " + partiSerpentVerif.getPartieCorp());
+
+
+				 partiSerpentVerif = partiSerpentVerif.getSuivant();
+			 }
 
         }
 
@@ -125,7 +134,7 @@ public class ComposantePlateau
 
             case 'N' ->
             {
-                if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
+                if ( this.serpent.getTete().getCoordX() - 1 >= 0 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
                     this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
 
@@ -134,7 +143,7 @@ public class ComposantePlateau
             }
             case 'S' ->
             {
-                if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
+                if (  this.serpent.getTete().getCoordX() + 1 < 32 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
 					this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
 
@@ -143,16 +152,17 @@ public class ComposantePlateau
             }
             case 'O' ->
             {
-                if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
+                if (  this.serpent.getTete().getCoordY() - 1 >= 0 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
                     this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
 
                     return true;
                 }
-            }
+
+			}
             case 'E' ->
             {
-                if ( this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
+                if (  this.serpent.getTete().getCoordY() + 1 < 32 && this.caseSvtEstPossible(this.serpent.getDirectionTete()) )
                 {
                     this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
 
@@ -174,7 +184,6 @@ public class ComposantePlateau
      */
     public boolean caseSvtEstPossible(char dir)
     {
-		// variable utilisé pour parcourir le serpent et voir si la case suivante est possible
 		PartieCorpSerpent partiSerpentVerif = this.serpent.getQueue();
 
 
@@ -182,61 +191,52 @@ public class ComposantePlateau
         {
             case 'N' ->
             {
-				if ( this.serpent.getTete().getCoordY() - 1 > 0 )
+				if ( this.serpent.getTete().getCoordX() - 1 >= 0 )
 					do
 					{
-						partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
-						partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
+						if ( this.serpent.getTete().getCoordY() == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() -1 == partiSerpentVerif.getCoordX() )
+							return false;
 
 						partiSerpentVerif = partiSerpentVerif.getSuivant();
-
-						if ( this.serpent.getTete().getCoordY() - 1 == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() == partiSerpentVerif.getCoordX() )
-							return false;
 
 					} while (partiSerpentVerif.getPartieCorp() != 'T');
             }
             case 'S' ->
             {
-				if ( this.serpent.getTete().getCoordY() + 1 < 32 )
+				if ( this.serpent.getTete().getCoordX() + 1 < 32 )
 					do
 					{
-						partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
-						partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
+
+						if ( this.serpent.getTete().getCoordY() == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() + 1 == partiSerpentVerif.getCoordX() )
+							return false;
 
 						partiSerpentVerif = partiSerpentVerif.getSuivant();
-
-						if ( this.serpent.getTete().getCoordY() + 1 == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() == partiSerpentVerif.getCoordX() )
-							return false;
 
 					} while (partiSerpentVerif.getPartieCorp() != 'T');
             }
             case 'O' ->
             {
-				if ( this.serpent.getTete().getCoordX() - 1 > 0 )
+				if ( this.serpent.getTete().getCoordY() - 1 >= 0 )
 					do
 					{
-						partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
-						partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
+
+						if ( this.serpent.getTete().getCoordY() - 1 == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() == partiSerpentVerif.getCoordX() )
+							return false;
 
 						partiSerpentVerif = partiSerpentVerif.getSuivant();
-
-						if ( this.serpent.getTete().getCoordY() == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() - 1 == partiSerpentVerif.getCoordX() )
-							return false;
 
 					} while (partiSerpentVerif.getPartieCorp() != 'T');
             }
             case 'E' ->
             {
-				if ( this.serpent.getTete().getCoordX() + 1 < 32 )
+				if ( this.serpent.getTete().getCoordY() + 1 < 32 )
 					do
 					{
-						partiSerpentVerif.setCoordX(partiSerpentVerif.getSuivant().getCoordX());
-						partiSerpentVerif.setCoordY(partiSerpentVerif.getSuivant().getCoordY());
+
+						if ( this.serpent.getTete().getCoordY() + 1 == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() == partiSerpentVerif.getCoordX() )
+							return false;
 
 						partiSerpentVerif = partiSerpentVerif.getSuivant();
-
-						if ( this.serpent.getTete().getCoordY() == partiSerpentVerif.getCoordY() && this.serpent.getTete().getCoordX() + 1 == partiSerpentVerif.getCoordX() )
-							return false;
 
 					} while (partiSerpentVerif.getPartieCorp() != 'T');
             }

@@ -22,8 +22,7 @@ public class FrameJeu extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Snake");
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setLocation(400, 400);
+		this.setSize(900,1000);
 
 		this.setLayout(new BorderLayout());
 
@@ -51,14 +50,31 @@ public class FrameJeu extends JFrame
 
 		public void keyPressed(KeyEvent e)
 		{
+			char charTete   = ctrl.getSerpent().getDirectionTete();
 			char charPresse = ' ';
 
 			switch ( e.getKeyCode() )
 			{
-				case (KeyEvent.VK_UP)   -> charPresse = 'N';
-				case (KeyEvent.VK_DOWN) -> charPresse = 'S';
-				case (KeyEvent.VK_LEFT) -> charPresse = 'O';
-				case (KeyEvent.VK_RIGHT)-> charPresse = 'E';
+				case (KeyEvent.VK_UP)   ->
+				{
+					if ( charTete != 'S')
+						charPresse = 'N';
+				}
+				case (KeyEvent.VK_DOWN) ->
+				{
+					if ( charTete != 'N')
+						charPresse = 'S';
+				}
+				case (KeyEvent.VK_LEFT) ->
+				{
+					if ( charTete != 'E')
+						charPresse = 'O';
+				}
+				case (KeyEvent.VK_RIGHT)->
+				{
+					if ( charTete != 'O')
+						charPresse = 'E';
+				}
 			}
 
 			if (charPresse != ' ')
