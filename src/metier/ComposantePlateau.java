@@ -101,6 +101,15 @@ public class ComposantePlateau
 		{
 			this.changementPlacePomme();
 			this.serpent.ajouterCorp();
+
+			switch ( this.serpent.getDirectionTete() )
+			{
+				case 'N' -> this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() - 1);
+				case 'S' -> this.serpent.getTete().setCoordX(this.serpent.getTete().getCoordX() + 1);
+				case 'O' -> this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() - 1);
+				case 'E' -> this.serpent.getTete().setCoordY(this.serpent.getTete().getCoordY() + 1);
+			}
+
 		}
 
 
