@@ -6,6 +6,12 @@ Aller à la racine du projet puis lancer la commande ( Sous linux )
 javac @compile.list -d class
 ```
 
+Ou ( Sous windows )
+
+```cmd
+javac $(Get-Content compile.list) -d class
+```
+
 Ensuite aller dans le .class 
 ``` cmd
 cd class
